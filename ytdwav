@@ -1,3 +1,5 @@
+# downloads audio from a YouTube video as a WAV file
+
 if [[ $# == 1 ]]; then
     yt-dlp -x --audio-format wav --audio-quality 0 $1
 else

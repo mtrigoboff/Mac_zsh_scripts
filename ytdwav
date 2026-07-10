@@ -1,0 +1,5 @@
+if [[ $# == 1 ]]; then
+    yt-dlp -x --audio-format wav --audio-quality 0 $1
+else
+    echo 'need a YouTube URL, wrapped in single quotes'
+fi

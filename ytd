@@ -5,7 +5,7 @@ if [[ $# == 2 ]]; then
         # download audio from a YouTube video as a WAV file
         yt-dlp -x --audio-format wav --audio-quality 0 $2
     elif [[ $1 == '-v' ]]; then
-        # downloa video from a YouTube video as an MP4 file
+        # download a YouTube video as an MP4 file
         yt-dlp -f "bv+ba/b" --remux-video mp4 $2
     else
         echo 'options are: -a for audio, -v for video'

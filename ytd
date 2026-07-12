@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # download YouTube audio or video
 
 if [[ $# == 2 ]]; then

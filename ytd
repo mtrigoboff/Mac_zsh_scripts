@@ -2,20 +2,29 @@
 
 # download YouTube audio or video
 
+# parts of the 'download audio' command (avoiding duplicate code)
+download_audio_cmd='yt-dlp -x --audio-format'
+download_audio_options="--audio-quality 0 --postprocessor-args 'ExtractAudio:-ar 44100'"
+
 if [[ $# == 2 ]]; then
-    if [[ $1 == '-m' ]]; then
-        # download audio as an MP3 file
-        yt-dlp -x --audio-format mp3 --audio-quality 0 --embed-metadata $2
-    elif [[ $1 == '-w' ]]; then
-        # download audio as a WAV file
-        yt-dlp -x --audio-format wav --audio-quality 0 $2
-    elif [[ $1 == '-v' ]]; then
-        # download video as an MP4 file
+
+    if [[ $1 == '-m' ]]; then                           # download audio as an MP3 file
+        eval "$download_audio_cmd mp3 $download_audio_options '$2'"
+
+    elif [[ $1 == '-w' ]]; then                         # download audio as a WAV file
+        eval "$download_audio_cmd wav $download_audio_options '$2'"
+
+    elif [[ $1 == '-v' ]]; then                         # download video as an MP4 file
         yt-dlp -f "bv+ba/b" --remux-video mp4 $2
+
     else
         echo 'options are: -m for MP3 audio, -w for WAV audio, -v for MP4 video'
+
     fi
+
 else
+
     echo 'usage: ytd [-m|-w|-v] <YouTube URL wrapped in single quotes>'
     echo '           (-m for MP3, -w for WAV, -v for video)'
+
 fi

@@ -3,16 +3,23 @@
 # download YouTube audio or video
 
 # parts of the 'download audio' command (avoiding duplicate code)
-download_audio_cmd='yt-dlp -x --audio-format'
-download_audio_options="--audio-quality 0 --postprocessor-args 'ExtractAudio:-ar 44100'"
+
+# tell yt_dlp to download audio
+download_audio='yt-dlp -x --audio-format'
+
+# highest quality audio
+highest_quality='--audio-quality 0'
+
+# sampled at 44.1 kHz; Genos2 requires this for tempo and pitch modification
+sample_441kHz="--postprocessor-args 'ExtractAudio:-ar 44100'"
 
 if [[ $# == 2 ]]; then
 
     if [[ $1 == '-m' ]]; then                           # download audio as an MP3 file
-        eval "$download_audio_cmd mp3 $download_audio_options '$2'"
+        eval "$download_audio mp3 $highest_quality $sample_441kHz '$2'"
 
     elif [[ $1 == '-w' ]]; then                         # download audio as a WAV file
-        eval "$download_audio_cmd wav $download_audio_options '$2'"
+        eval "$download_audio wav $highest_quality $sample_441kHz '$2'"
 
     elif [[ $1 == '-v' ]]; then                         # download video as an MP4 file
         yt-dlp -f "bv+ba/b" --remux-video mp4 $2
